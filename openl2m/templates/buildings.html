@@ -1,0 +1,9 @@
+{% for building in building_list %}
+    <div> Building: {{ building.name }}
+        <ul>
+        {% for switch in building.switches %}
+            <li> {{ switch.name }} </li>
+        {% endfor %}
+        </ul>
+    </div>
+{% endfor %}

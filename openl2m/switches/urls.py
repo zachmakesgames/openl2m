@@ -19,6 +19,7 @@ from . import views
 app_name = 'switches'
 urlpatterns = [
     path('', views.switches, name='groups'),
+    path(r'buildings', views.get_buildings, name='get_buildings'),
     path(r'search', views.switch_search, name='switch_search'),
     path(r'activity', views.admin_activity, name='admin_activity'),
     path(r'stats', views.show_stats, name='show_stats'),

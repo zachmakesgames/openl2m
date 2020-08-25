@@ -406,6 +406,35 @@ class VlanGroup(models.Model):
 
 
 #
+# Routers
+#
+class Building(models.Model):
+    """
+    Buildings
+    """
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+
+
+    name = models.CharField(
+        max_length=64,
+        unique=True,
+    )
+    class Meta:
+        ordering = ['name']
+        verbose_name_plural = 'Buildings'
+
+    def display_name(self):
+        """
+        This is used in templates, so we can 'annotate' as needed
+        """
+        return self.name
+
+    def __str__(self):
+        return self.display_name()	
+#
 # Switches
 #
 
@@ -554,6 +583,8 @@ class Switch(models.Model):
         verbose_name='Bitmap of switch snmp capabilities',
         help_text='Bitmap of switch snmp capabilities.',
     )
+
+    building = models.ForeignKey(Building, null=True, on_delete=models.CASCADE)
 
     class Meta:
         ordering = ['name']

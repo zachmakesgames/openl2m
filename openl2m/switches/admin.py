@@ -16,7 +16,7 @@ from django.contrib.admin.views.main import ChangeList
 from ordered_model.admin import OrderedStackedInline, OrderedInlineModelAdminMixin
 
 # Register your models here.
-from switches.models import (Command, CommandList, Switch, SwitchGroup, SwitchGroupMembership,
+from switches.models import (Command, CommandList, Building, Switch, SwitchGroup, SwitchGroupMembership,
                              SnmpProfile, NetmikoProfile, VLAN, VlanGroup, Task)
 
 # register with the custom admin site
@@ -133,7 +133,11 @@ class TaskAdmin(admin.ModelAdmin):
         return False
 
 
+class BuildingAdmin(admin.ModelAdmin):
+	fields = ['name']
+
 # Register your models here.
+admin_site.register(Building, BuildingAdmin)
 admin_site.register(Switch, SwitchAdmin)
 admin_site.register(SwitchGroup, SwitchGroupAdmin)
 admin_site.register(VLAN, VLANAdmin)

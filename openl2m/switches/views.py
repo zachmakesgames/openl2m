@@ -44,6 +44,8 @@ from switches.utils import *
 from switches.tasks import bulkedit_task, bulkedit_processor
 from users.utils import *
 
+#Temporary until I write a tempalte
+from django.http import HttpResponse
 
 @login_required(redirect_field_name=None)
 def switches(request):
@@ -1535,3 +1537,29 @@ def user_can_access_task(request, task=False):
             return True
     # deny others
     return False
+
+class BuildingContainer:
+    name = ""
+    switches = []
+
+def get_buildings(request):
+    buildings = Building.objects.all().order_by('name')
+    building_list = []    
+
+    for r in buildings:
+        building = BuildingContainer()
+        building.name = r.name
+        switches = Switch.objects.filter(building__name=r.name)
+        tup = (r, switches)
+        building.switches = switches
+        #router_tuples.append(tup)
+        building_list.append(building)
+        #print("router:", r.name, "has switches:")
+        #for s in switches:
+	#	print(s.name)
+
+
+
+    context = {'building_list': building_list}
+    return render(request, 'buildings.html', context)
+    #return HttpResponse(response)
